@@ -86,7 +86,7 @@ const addBooksHandler  = (request , h) => {
 
 };
 
-const getAllBooksHAndler = (request , h) => {
+const getAllBooksHandler = (request , h) => {
     //  ini untuk menambahkan fitur optional yang query 
     const {  name , reading , finished } = request.query ;
     const filteredBook = books.filter((a) => {
@@ -123,13 +123,111 @@ const getDetailHandler = (request , h) => {
         status : 'fail', 
         message : 'Data gagal didapatkan'
     });
-    response.code = 400
+    response.code(400)
     return response ; 
+}; 
+
+const updateDataBookHandler = (request, h) => {
+    const {bookId} = request.params; 
+
+    const { 
+        name , 
+        year ,
+         author , 
+         summary, 
+         publisher , 
+         pageCount, 
+        readPage, 
+        reading
+    } = request.payload ; 
+
+    const finished = pageCount === readPage ; 
+    const updateAt = new Date().toISOString(); 
+
+    if (name === undefined ){
+        const response = h.response({
+            status : 'fail', 
+            message : 'Gagal memperbarui buku. Mohon isi nama buku',
+        });
+
+        response.code(400) ;
+        return response ; 
+    }; 
+
+    if (readPage > pageCount ){
+        const response = h.response({
+            status : 'fail', 
+            message : 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount'
+        }); 
+
+        response.code(400) ; 
+        return response ; 
+    }
+
+    //  now kita dapatkan dulu index id mana yang akan kita update 
+    const index = books.findIndex((books) => books.id === bookId);
+
+    if (index !== -1) {
+        books[index] = {
+            ...books[index],
+            name , 
+            year ,
+            author , 
+            summary, 
+            publisher , 
+            pageCount, 
+            readPage, 
+            reading, 
+            finished , 
+            updateAt
+        }; 
+         const response = h.response({
+             status : 'success' , 
+             message : 'Berhasil mengupdate buku'
+         });
+         response.code(200); 
+         return response 
+    }
+
+     const response = h.response({
+         status : 'fail', 
+         message : 'gagal mengupdate data'
+     }); 
+     response.code(404); 
+     return response ; 
+
+};
+
+const deleteBooksHandler = (request , h) => {
+    const {bookId}= request.params; 
+
+    const index = books.findIndex((books) => books.id === bookId) ;
+    if (index !== -1) {
+        books.splice(index, 1);
+        const response   = h.response({
+            status : 'success', 
+            message : 'Data berhasil di hapus',
+        });
+        response.code(200)
+        return response;
+    }
+
+     const response = h.response ({
+         status : 'fail', 
+         message : 'Data tidak berhasil dihapus, id tidak ditemukan',
+     });
+
+     response.code(404);
+     return response;
+
 }
 
 
 
 module.exports = {
     addBooksHandler, 
-    getAllBooksHAndler
+    getAllBooksHandler, 
+    getDetailHandler, 
+    updateDataBookHandler, 
+    deleteBooksHandler
 }
