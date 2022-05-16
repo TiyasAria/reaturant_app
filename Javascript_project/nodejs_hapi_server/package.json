@@ -1,0 +1,15 @@
+{
+  "name": "nodejs_hapi_server",
+  "version": "1.0.0",
+  "description": "ini project menggunakan framework hapi",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "tiyas",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.2"
+  }
+}

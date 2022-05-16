@@ -1,0 +1,12 @@
+{
+  "name": "latihan-api",
+  "version": "1.0.0",
+  "description": "ini latihan membuat api ",
+  "main": "index.js",
+  "scripts": {
+    "start" :"node server.js"
+  },
+  "author": "tiyas",
+  "license": "ISC",
+  "keywords": []
+}

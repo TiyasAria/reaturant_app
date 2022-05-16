@@ -1,0 +1,56 @@
+//  hal pertama yang dilakukan adlaah membuat HTTP nya terlebeih dahulu 
+const http = require('http');
+
+const processData = (request, response) => {
+        response.setHeader('Content-Type', 'text-html');
+        response.statusCode = 200;
+        
+        //  sekrang kit akan latihan menggunakan method yang ada , didalam kode ini kita akan mencoba berbagai method yang bisa kita gunakan 
+
+        const {url , method} = request;
+
+        if (method === 'GET') {
+        response.end(`<h1>halooo Tyas</h1>`);
+        }
+
+        if (method === 'POST') {
+                //  inisialisasi trlebih dahulu var kita 
+                let body = [];
+
+                request.on('data', (chunk) => {
+                        body.push(chunk);
+                });
+
+                request.on('end', ()=> {
+                        body = Buffer.concat(body).toString();
+                        //  karena hasil nya masih json string sekrang kita ingin mengubahnya menjadi javascript objet 
+                        const {name} = JSON.parse(body);
+                        response.end(`<h1>Halo ${name}</h1>`);
+
+                });
+
+        }
+
+        //  kita komen karen kita ingin focus membuat body request POST 
+        // if (method === 'PUT') {
+        //         response.end(`<h1>Salam Tiyas</h1>`);
+        // }
+
+        // if(method === 'DELETE') {
+        //         response.end(`<h1>Salam aria</h1>`)
+        // }
+        
+}
+
+const server = http.createServer(processData);
+
+//  kita akan menggunakan method listen() didlam method ini terdapat 4 param , 
+//  - port , - hostname (nama domain) , backlog (maksimal data yg kepending) , - function callback nya  , (ke 4 para ini bersifat opsiaonal )
+
+//  buat port dan juga host nya 
+const port = '5000';
+const host = 'localhost';
+
+server.listen(port, host , () => {
+        console.log(`data berjalan di port ${port} dan dengan domanain ${host}`)
+})

@@ -1,0 +1,21 @@
+langkah pertama yang dilakukan adalah 
+- membuat file , kemudian kita jalanakan npm init --y (untuk membuat node js nya) , lalu dibagian script , ubah dengan key start dan valuenya "node server.js" , 
+sehingga ketika kita mau run tinggal ketiknpm run start
+
+1. membuat http server (dimana disini menggunakan Hapi.server() ) nah , method server ini 
+menerima satu argument yaitu serverOptions (isinya adalah port dan host), kemudian setelah kita 
+definisikan port dan host nya kita , memanggil server kita dengan method start(), dan kita jalankan didalam fucn asynch 
+agar datanya dapat dikirim secara tidak berurutan , sehingga kita akan menggunakan await  , dan untuk mendapat info server
+berjalan di host dan port berapa , bisa menggunakan  server.info.uri
+
+2. setelah membuat server , kita akan membuat routing untuk method dan url yang di request oleh client , untuk menggunakan 
+routing pada hapi , kita akan menggunakan objek configuration , dan menggunakan method route() , di method route ini ada 3 func 
+- method yg digunakan (get , post , put , delete)
+- path => alamat mana yang mau di akses 
+- handler (function yang menangani responnya ini )
+disaran kan untuk membuat route di file yang bereda agar tidak membingunkan , setelah membuatnya jangan lupa di export 
+lalu ketika sudah di export maka panggil di server. js kita 
+
+
+
+

@@ -1,0 +1,3 @@
+ini baris bertama 
+ini baris kedua 
+ini the last sudah selesai
