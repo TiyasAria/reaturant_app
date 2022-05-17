@@ -9,7 +9,7 @@ const routes = [
  {
     method :'GET', 
     path : '/books', 
-    handler : getDetailHandler
+    handler : getAllBooksHandler,
  }, 
  {
     method :'GET', 

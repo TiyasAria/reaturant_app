@@ -89,19 +89,30 @@ const addBooksHandler  = (request , h) => {
 const getAllBooksHandler = (request , h) => {
     //  ini untuk menambahkan fitur optional yang query 
     const {  name , reading , finished } = request.query ;
-    const filteredBook = books.filter((a) => {
-        if(name) return a.name.toLowerCase().include(name.toLowerCase());
-        if(reading) return (reading === '1' || reading === '0') ? a.reading === (reading === '1') : a ;
-        if(finished) return (finished === '1' || finished === '0') ? a.finished === (finished === '1') : a ;
-    }) ; 
+    let filteredBook = books;
+    if(name !== undefined){
+         filteredBook = books.filter((book) => book.name.toLowerCase().includes(name.toLowerCase()));
+    };
+
+    if (reading !== undefined){
+         filteredBook = books.filter((book) => Number(book.reading) === Number(reading))
+    };
+
+    if(finished !== undefined){
+         filteredBook = books.filter((book) => Number(book.finished) === Number(finished));
+    }
+
+
     return h.response({
         status : 'success' , 
         message : 'Data berhasil di dapatkan',
-        data : filteredBook.map((book) => ({
-            id : book.id, 
-            name : book.name , 
-            publisher : book.publisher, 
-        }))
+        data : {
+            books : filteredBook.map((book) => ({
+                id : book.id, 
+                name : book.name , 
+                publisher : book.publisher, 
+            }))
+        }
     })
 }; 
 
