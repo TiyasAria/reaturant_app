@@ -1,5 +1,15 @@
 {
   "dependencies": {
     "prompt-sync": "^4.2.0"
-  }
+  },
+  "name": "coding-challenge",
+  "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
+  "version": "1.0.0",
+  "main": "cd_5.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "ini coding challeng"
+  },
+  "author": "tiyas aria",
+  "license": "ISC"
 }
